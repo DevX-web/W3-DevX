@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import SignIn from './pages/signin';
+import Home from './pages/home';
 
 function App({ firebaseUser }) {
-  console.log({ firebaseUser });
-  return <div>{!firebaseUser ? <SignIn /> : <div>you signed in </div>}</div>;
+  return <div>{!firebaseUser ? <SignIn /> : <Home />}</div>;
 }
 
 const mapStateToProps = (state) => ({
