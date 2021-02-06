@@ -3,6 +3,7 @@ import { SignIn, Home } from './pages';
 import { MapContainer } from './components';
 
 function App({ firebaseUser }) {
+
   return (
     <div>
       <MapContainer />

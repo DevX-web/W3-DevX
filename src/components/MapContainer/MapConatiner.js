@@ -1,13 +1,37 @@
-import { MapContainer as Map, Popup, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Popup, Marker, TileLayer } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+import { Spinner } from '@geist-ui/react';
 
-function MapContainer({
-  center = [51.505, -0.09],
-  zoom = 13,
-  scrollZoom,
-  position = [51.505, -0.09],
-}) {
-  return (
-    <Map
+const MapWrapper = ({ zoom = 50, scrollWheelZoom = true }) => {
+  const [loc, setLoc] = useState([null, null]);
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log('grant');
+      fetch('https://www.iplocate.io/api/lookup')
+        .then((response) => response.json())
+        .then((json) => {
+          setLoc([json.latitude, json.longitude]);
+        });
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLoc([position.coords.latitude, position.coords.longitude]);
+          console.log(position);
+        },
+        () => {
+          fetch('https://www.iplocate.io/api/lookup')
+            .then((response) => response.json())
+            .then((json) => {
+              setLoc([json.latitude, json.longitude]);
+            });
+        }
+      );
+    }
+  }, []);
+
+  return loc[0] ? (
+    <MapContainer
       style={{
         height: '100vh',
         position: 'fixed',
@@ -16,21 +40,34 @@ function MapContainer({
         left: 0,
         bottom: 0,
       }}
-      center={center}
+      center={loc}
       zoom={zoom}
-      scrollWheelZoom={scrollZoom}
+      scrollWheelZoom={scrollWheelZoom}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={position}>
+      <Marker position={loc}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
-    </Map>
+    </MapContainer>
+  ) : (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100vw',
+        height: '100vh',
+        position: 'fixed',
+      }}
+    >
+      <Spinner size="large" />
+    </div>
   );
-}
+};
 
-export default MapContainer;
+export default MapWrapper;
