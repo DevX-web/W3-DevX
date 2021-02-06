@@ -10,6 +10,6 @@ body {
 .authentication-switch {
   z-index: 999;
   position: fixed;
-  right: 32px;
-  top: 32px;
+  right: 24px;
+  top: 24px;
 }

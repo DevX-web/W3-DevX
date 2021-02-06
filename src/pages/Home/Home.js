@@ -4,15 +4,15 @@ import { nukeFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
 
 function Home({ nukeFirebaseUser }) {
-  const onSignOut = () => {
+  const onSignOut = async () => {
     nukeFirebaseUser();
-    firebaseApp.auth().signOut();
+    await firebaseApp.auth().signOut();
   };
 
   return (
     <div>
       <div className="authentication-switch">
-        <Button type="success-light" onClick={onSignOut}>
+        <Button type="success-light" auto onClick={onSignOut}>
           Sign Out
         </Button>
       </div>
