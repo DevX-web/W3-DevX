@@ -1,17 +1,14 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setFirebaseUser } from '../redux/mainReduxDuck';
-import { firebaseApp } from '../firebase/init';
+import { setFirebaseUser } from '../../redux/mainReduxDuck';
+import { firebaseApp } from '../../firebase/init';
 import { StyledFirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase/app';
 
 const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: () => false,
-  },
+  callbacks: { signInSuccessWithAuthResult: () => false },
 };
 
 const SignIn = ({ setFirebaseUser }) => {
@@ -25,7 +22,7 @@ const SignIn = ({ setFirebaseUser }) => {
   }, [setFirebaseUser]);
 
   return (
-    <div>
+    <div className="authentication-switch">
       <StyledFirebaseAuth
         uiConfig={uiConfig}
         firebaseAuth={firebaseApp.auth()}
