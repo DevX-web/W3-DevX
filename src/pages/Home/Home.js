@@ -1,9 +1,11 @@
+import { connect } from 'react-redux';
 import { Button } from '@geist-ui/react';
+import { nukeFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
-import { MapContainer } from '../../components';
 
-function Home() {
+function Home({ nukeFirebaseUser }) {
   const onSignOut = () => {
+    nukeFirebaseUser();
     firebaseApp.auth().signOut();
   };
 
@@ -18,4 +20,10 @@ function Home() {
   );
 }
 
-export default Home;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  nukeFirebaseUser: () => dispatch(nukeFirebaseUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
