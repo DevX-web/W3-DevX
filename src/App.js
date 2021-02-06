@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
-import SignIn from './pages/signin';
-import Home from './pages/home';
+import { SignIn, Home } from './pages';
+import { MapContainer } from './components';
 
 function App({ firebaseUser }) {
-  return <div>{!firebaseUser ? <SignIn /> : <Home />}</div>;
+  return (
+    <div>
+      <MapContainer />
+      {!firebaseUser ? <SignIn /> : <Home />}
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({

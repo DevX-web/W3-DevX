@@ -7,7 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.authentication-switch {
+  z-index: 999;
+  position: fixed;
+  right: 32px;
+  top: 32px;
 }
