@@ -1,0 +1,10 @@
+.searchBarContainer {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 24px;
+}
+
+.searchBarContainer > div {
+    background-color: #fff;
+}

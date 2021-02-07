@@ -5,7 +5,7 @@ import { firebaseApp } from '../../firebase/init';
 import firebase from 'firebase/app';
 import { Button } from '@geist-ui/react';
 
-const SignIn = ({ setFirebaseUser }) => {
+const SignIn = ({ setFirebaseUser, firebaseUser, downSm }) => {
   const onSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -29,17 +29,19 @@ const SignIn = ({ setFirebaseUser }) => {
   }, [setFirebaseUser]);
 
   return (
-    <div className="authentication-switch">
-      <div className="authentication-switch">
-        <Button type="success-light" auto onClick={onSignIn}>
-          Sign In
-        </Button>
-      </div>
-    </div>
+    <>
+      {!downSm && !firebaseUser && (
+        <div className="authentication-switch">
+          <Button type="success-light" auto onClick={onSignIn}>
+            Sign In
+          </Button>
+        </div>
+      )}
+    </>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({ firebaseUser: state.firebaseUser });
 
 const mapDispatchToProps = (dispatch) => ({
   setFirebaseUser: (user) => dispatch(setFirebaseUser(user)),

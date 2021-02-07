@@ -39,6 +39,7 @@ const MapWrapper = ({ zoom = 50, scrollWheelZoom = true }) => {
         right: 0,
         left: 0,
         bottom: 0,
+        zIndex: -1,
       }}
       center={loc}
       zoom={zoom}

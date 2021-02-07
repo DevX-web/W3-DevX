@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import { Button } from '@geist-ui/react';
 import { nukeFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
-function Home({ nukeFirebaseUser }) {
+function Home({ nukeFirebaseUser, firebaseUser, downSm }) {
   const onSignOut = async () => {
     nukeFirebaseUser();
     await firebaseApp.auth().signOut();
@@ -11,16 +12,19 @@ function Home({ nukeFirebaseUser }) {
 
   return (
     <div>
-      <div className="authentication-switch">
-        <Button type="success-light" auto onClick={onSignOut}>
-          Sign Out
-        </Button>
-      </div>
+      <SearchBar downSm={downSm} />
+      {!downSm && firebaseUser && (
+        <div className="authentication-switch">
+          <Button type="success-light" auto onClick={onSignOut}>
+            Sign Out
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({ firebaseUser: state.firebaseUser });
 
 const mapDispatchToProps = (dispatch) => ({
   nukeFirebaseUser: () => dispatch(nukeFirebaseUser()),

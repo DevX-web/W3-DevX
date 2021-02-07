@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@geist-ui/react": "^2.1.0-canary.2",
+    "@geist-ui/react-icons": "^1.0.1",
     "firebase": "^8.2.6",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
