@@ -1,3 +1,3 @@
-import MapContainer from './MapContainer/MapConatiner';
+import MapContainer from './MapContainer/MapWrapper';
 
 export { MapContainer };
