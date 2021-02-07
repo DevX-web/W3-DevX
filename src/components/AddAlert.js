@@ -1,4 +1,15 @@
-import { Input, Spacer, Dot, Text, Code, Button } from '@geist-ui/react';
+import {
+  Input,
+  Spacer,
+  Dot,
+  Text,
+  Code,
+  Button,
+  Select,
+  Modal,
+  useModal,
+} from '@geist-ui/react';
+import { AlertTriangle } from '@geist-ui/react-icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -10,6 +21,7 @@ const AddAlert = () => {
   // }
 
   const { register, handleSubmit, errors } = useForm({ criteriaMode: 'all' });
+  const { visible, setVisible, bindings } = useModal();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -17,34 +29,36 @@ const AddAlert = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        placeholder="Evil Rabbit"
-        width="50%"
-        name="Name"
-        ref={register({ required: true })}
-      >
-        Address
-      </Input>
-      <Spacer />
-      <Input
-        placeholder="Post title"
-        width="50%"
-        name="Address"
-        ref={register({ required: true })}
-      >
-        Details
-      </Input>
-      <Spacer />
-      <Input
-        placeholder="GitHub Actions"
-        width="50%"
-        name="Details"
-        ref={register({ required: true })}
-      >
-        Severity
-      </Input>
-      <Spacer />
-      <Button htmlType="submit">Submit</Button>
+      <Button auto onClick={() => setVisible(true)}>
+        Report
+      </Button>
+      <Modal {...bindings}>
+        <Modal.Title>Report</Modal.Title>
+        <Modal.Content id="customModalSelect">
+          <Select
+            placeholder="Severity"
+            initialValue="1"
+            size="medium"
+            getPopupContainer={() =>
+              document.getElementById('customModalSelect')
+            }
+          >
+            <Select.Option value="1">Low</Select.Option>
+            <Select.Option value="2">Medium</Select.Option>
+            <Select.Option value="3">High</Select.Option>
+          </Select>
+          <Spacer />
+          <Input width="100%" />
+          <Spacer />
+          <Input width="100%" />
+          <Spacer />
+          <Input width="100%" />
+        </Modal.Content>
+        <Modal.Action passive onClick={() => setVisible(false)}>
+          Cancel
+        </Modal.Action>
+        <Modal.Action onClick={onSubmit}>Submit</Modal.Action>
+      </Modal>
     </form>
   );
 };

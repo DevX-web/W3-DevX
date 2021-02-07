@@ -4,7 +4,7 @@ import { nukeFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { CrimeReportInfo } from '../../components';
-
+import { AddAlert } from '../../components';
 function Home({ nukeFirebaseUser, firebaseUser, downSm }) {
   const onSignOut = async () => {
     nukeFirebaseUser();
@@ -22,6 +22,7 @@ function Home({ nukeFirebaseUser, firebaseUser, downSm }) {
         </div>
       )}
       <CrimeReportInfo />
+      <AddAlert />
     </div>
   );
 }
