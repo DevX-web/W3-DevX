@@ -1,4 +1,5 @@
-import MapContainer from './MapContainer/MapWrapper';
+import MapWrapper from './MapContainer/MapWrapper';
 import CrimeReportInfo from './CrimeReportInfo/CrimeReportInfo';
+import SearchBar from './SearchBar/SearchBar';
 
-export { MapContainer, CrimeReportInfo };
+export { MapWrapper, CrimeReportInfo, SearchBar };
