@@ -2,16 +2,23 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
-import { StyledFirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase/app';
+import { Button } from '@geist-ui/react';
 
-const uiConfig = {
-  signInFlow: 'popup',
-  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-  callbacks: { signInSuccessWithAuthResult: () => false },
-};
+const SignIn = ({ setFirebaseUser, firebaseUser, downSm }) => {
+  const onSignIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        setFirebaseUser(result.user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-const SignIn = ({ setFirebaseUser }) => {
   useEffect(() => {
     const unsubAuthListener = firebaseApp.auth().onAuthStateChanged((user) => {
       setFirebaseUser(user);
@@ -22,16 +29,19 @@ const SignIn = ({ setFirebaseUser }) => {
   }, [setFirebaseUser]);
 
   return (
-    <div className="authentication-switch">
-      <StyledFirebaseAuth
-        uiConfig={uiConfig}
-        firebaseAuth={firebaseApp.auth()}
-      />
-    </div>
+    <>
+      {!downSm && !firebaseUser && (
+        <div className="authentication-switch">
+          <Button type="success-light" auto onClick={onSignIn}>
+            Sign In
+          </Button>
+        </div>
+      )}
+    </>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({ firebaseUser: state.firebaseUser });
 
 const mapDispatchToProps = (dispatch) => ({
   setFirebaseUser: (user) => dispatch(setFirebaseUser(user)),
