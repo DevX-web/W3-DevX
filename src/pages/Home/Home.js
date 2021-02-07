@@ -3,6 +3,7 @@ import { Button } from '@geist-ui/react';
 import { nukeFirebaseUser } from '../../redux/mainReduxDuck';
 import { firebaseApp } from '../../firebase/init';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import { CrimeReportInfo } from '../../components';
 
 function Home({ nukeFirebaseUser, firebaseUser, downSm }) {
   const onSignOut = async () => {
@@ -20,6 +21,7 @@ function Home({ nukeFirebaseUser, firebaseUser, downSm }) {
           </Button>
         </div>
       )}
+      <CrimeReportInfo />
     </div>
   );
 }
